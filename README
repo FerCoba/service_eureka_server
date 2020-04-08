@@ -1,0 +1,50 @@
+El siguiente proyecto es un proyecto de pruebas personal en el cual
+voy aplicando conocimientos tanto del trabajo diario como de cursos 
+que voy realizando.
+* Para el correcto funcionamiento del mismo se debe de crear en docker
+las imagenes y contenedores correspondientes de:
+	- service_eureka_server
+	- service-zuul-server
+	- microservice_product
+	- microservice_item
+Los contenedores deben de correr dentro de una red de docker por lo
+cual debe de crearse.
+
+Los contenedores deben de ejecutarse de la siguiente manera para no
+tener errores:
+	- Contenedor de service_eureka_server (es el que registra y aloja
+	  los demas contenedores)
+	- Contenedor microservice_product o microservice_item (es indistinto)
+	- Contenedor service-zuul-server.
+	
+* En el microservicio microservice_product existen los siguientes end-point:
+	/obtainInformationAllProducts (obtiene todos los productos)
+	/obtainProductInformation/{productId} (obtiene un producto por su id)
+	/createNewProduct (crea un nuevo producto)
+	/deleteProduct/{productId} (elimina un producto por su id)
+toda la informacion del producto se encuentra en el archivo import.sql que 
+forma parte del proyecto microservice_product (en la carpeta resources),
+esta informacion se genera cada ves que se inica el servicio 
+(es una base de datos H2 que se encuentra en memoria)
+
+* En el microservice_item existen los siguientes end-point:
+	/obtainItemsInformation (obtiene todos los productos)
+	/createNewProduct (crea un nuevo producto)
+	/id/{id}/quantity/{quantity}/obtainInformationItemById (obtiene la informacion
+	del producto y el precio del mismo multiplicaso por {quantity}
+	/deleteProduct/{productId} (elimina un producto por su id)
+	
+* Cuando los proyectos estan corriendo en docker la forma de acceder a los mismos
+  es 
+  	- http://192.168.99.100:8090/api/item/(end-point)
+  	- http://192.168.99.100:8090/api/product/(end-point)
+  Importante el valor del servidor(192.168.99.100) es el que genera por defecto
+  docker, el puerto es simpre el mismo (8090 : es el puerto del service -> service-zuul-server)
+  
+  * Las configuraciones de cada uno de los proyectos se encuentran en los archivos application.properties de los mismos)
+  
+  * Una vez levantado los distintos contenedores en la url -> (http://192.168.99.100:8761/eureka/) se puede ver la informacion del servidor y los
+  proyectos que contiene.
+  
+  
+  
